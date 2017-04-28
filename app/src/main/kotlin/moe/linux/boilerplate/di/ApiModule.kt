@@ -45,6 +45,7 @@ class ApiModule {
             .addConverterFactory(gsonConverterFactory)
             .baseUrl("https://qiita.com/api/v2/")
             .build()
+            .apply { this.baseUrl() }
             .create(QiitaApiService::class.java)
 
     @Provides @Singleton

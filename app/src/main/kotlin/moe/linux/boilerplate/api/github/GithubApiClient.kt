@@ -8,6 +8,6 @@ import javax.inject.Singleton
 @Singleton
 class GithubApiClient @Inject constructor(val githubApiService: GithubApiService) : AbstructApiClient() {
     fun showCommitsList(author: String, repo: String): Observable<List<CommitsResponse>> {
-        return bindThread(githubApiService.showCommitsList(author, repo))
+        return githubApiService.showCommitsList(author, repo).bindThread()
     }
 }

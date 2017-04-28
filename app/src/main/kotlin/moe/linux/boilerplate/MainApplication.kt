@@ -1,6 +1,7 @@
 package moe.linux.boilerplate
 
 import android.app.Application
+import android.util.Log
 import dagger.Lazy
 import moe.linux.boilerplate.di.AppComponent
 import moe.linux.boilerplate.di.AppModule

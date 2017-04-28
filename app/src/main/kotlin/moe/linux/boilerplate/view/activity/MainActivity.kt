@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import io.reactivex.Observable
 import moe.linux.boilerplate.R
 import moe.linux.boilerplate.api.github.GithubApiClient
+import moe.linux.boilerplate.api.mastodon.MastodonApiClient
 import moe.linux.boilerplate.api.qiita.QiitaApiClient
 import moe.linux.boilerplate.databinding.ActivityMainBinding
 import moe.linux.boilerplate.view.fragment.BaseFragment
@@ -38,9 +39,20 @@ class MainActivity : BaseActivity() {
 
     val githubListFragment: GithubListFragment by lazyFragment(GithubListFragment.TAG, { GithubListFragment.newInstance() })
 
+    val mastodonApiClient by lazy { MastodonApiClient("https://mstdn.jp") }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityComponent.injectTo(this)
+
+        mastodonApiClient
+            .apps("canopus")
+            .subscribe({
+                Timber.d("recieve")
+                Timber.d(it.toString())
+            }, {
+                Timber.e(it)
+            })
 
         initView()
         initFragment(savedInstanceState)

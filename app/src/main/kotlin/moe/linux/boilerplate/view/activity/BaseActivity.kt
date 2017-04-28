@@ -1,5 +1,7 @@
 package moe.linux.boilerplate.view.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -7,6 +9,7 @@ import moe.linux.boilerplate.MainApplication
 import moe.linux.boilerplate.di.ActivityComponent
 import moe.linux.boilerplate.di.ActivityModule
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -23,6 +26,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        compositeDisposable.dispose()
+        compositeDisposable.dispose().apply { }
+    }
+
+    fun startActivity(clazz: KClass<out Activity>) {
+        startActivity(Intent(this, clazz.java))
     }
 }

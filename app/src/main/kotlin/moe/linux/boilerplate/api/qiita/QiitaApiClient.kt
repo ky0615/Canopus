@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class QiitaApiClient @Inject constructor(private val qiitaApiService: QiitaApiService) : AbstructApiClient() {
     fun stockList(user: String): Observable<List<StockListResponse>> {
-        return bindThread(qiitaApiService.stockList(user))
+        return qiitaApiService.stockList(user).bindThread()
     }
 }
