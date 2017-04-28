@@ -1,8 +1,8 @@
 package moe.linux.boilerplate
 
 import android.app.Application
-import android.util.Log
 import dagger.Lazy
+import io.realm.Realm
 import moe.linux.boilerplate.di.AppComponent
 import moe.linux.boilerplate.di.AppModule
 import moe.linux.boilerplate.di.DaggerAppComponent
@@ -23,6 +23,8 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         component.injectTo(this)
+
+        Realm.init(this)
 
         if (BuildConfig.DEBUG)
             Timber.plant(debugTree.get())
