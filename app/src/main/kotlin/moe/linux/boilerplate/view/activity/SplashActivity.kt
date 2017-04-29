@@ -1,6 +1,7 @@
 package moe.linux.boilerplate.view.activity
 
 import android.os.Bundle
+import com.mcxiaoke.koi.ext.startActivity
 import io.reactivex.Observable
 import moe.linux.boilerplate.BuildConfig
 import moe.linux.boilerplate.R
@@ -37,11 +38,11 @@ class SplashActivity : BaseActivity() {
 
     fun openMainPage() {
         finish()
-        startActivity(MainActivity::class)
+        startActivity<MainActivity>()
     }
 
     fun openLoginPage() {
         finish()
-        startActivity(AccountLoginActivity::class)
+        startActivity<AccountLoginActivity>()
     }
 }

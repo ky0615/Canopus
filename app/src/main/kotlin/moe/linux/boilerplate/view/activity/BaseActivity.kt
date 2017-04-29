@@ -28,8 +28,4 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
         compositeDisposable.dispose().apply { }
     }
-
-    fun startActivity(clazz: KClass<out Activity>) {
-        startActivity(Intent(this, clazz.java))
-    }
 }

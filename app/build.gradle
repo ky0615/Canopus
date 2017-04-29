@@ -143,6 +143,10 @@ dependencies {
     compile 'com.github.grandstaish.paperparcel:paperparcel-kotlin:1.0.1'
     kapt 'com.github.grandstaish.paperparcel:compiler:1.0.1'
 
+    // Koi
+    compile 'com.mcxiaoke.koi:core:0.5.4'
+    compile 'com.mcxiaoke.koi:async:0.5.4'
+
     // Misc
     compile 'com.jakewharton.timber:timber:4.3.1'
 
