@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId packageName
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -128,8 +128,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     // RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // okhttp
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
@@ -146,6 +146,9 @@ dependencies {
     // Koi
     compile 'com.mcxiaoke.koi:core:0.5.4'
     compile 'com.mcxiaoke.koi:async:0.5.4'
+
+    // progress animation
+    compile 'net.bohush.geometricprogressview:geometricprogressview:1.1.1'
 
     // Misc
     compile 'com.jakewharton.timber:timber:4.3.1'

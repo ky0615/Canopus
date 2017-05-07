@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="moe.linux.boilerplate.viewModel.LoginViewModel" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/indent_4"
+            android:layout_marginRight="@dimen/indent_4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/login_input_instance_url"
+                    android:textAppearance="@style/AppTheme.Text.Medium" />
+
+                <net.bohush.geometricprogressview.GeometricProgressView
+                    android:layout_width="@dimen/indent_8"
+                    android:layout_height="@dimen/indent_6"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/indent_1"
+                    android:layout_marginRight="@dimen/indent_1"
+                    android:visibility="@{viewModel.showProgressView?View.VISIBLE : View.GONE}"
+                    app:gp_color="@color/colorPrimary"
+                    app:gp_type="kite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Textview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_input_instance_url_prefix"
+                    android:textAppearance="@style/AppTheme.Text.Medium" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri"
+                    android:text="@={viewModel.instanceUrl}">
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/instanceURL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{viewModel.enableLoginButton}"
+                android:text="@string/login_login_button_text"
+                app:onClickListener="@{viewModel.onClickLoginButton}" />
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

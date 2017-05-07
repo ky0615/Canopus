@@ -33,8 +33,13 @@ class MastodonApiClient(val baseUrl: String) : AbstructApiClient() {
             .apps(clientName, redirectUris, scopes)
             .bindThread()
 
+    fun getAccessToken(clientId: String, clientSecret: String, code: String, redirectUri: String, grantType: String = "authorization_code") =
+        mastodonApiService
+            .getToken(clientId, clientSecret, code, redirectUri, grantType)
+            .bindThread()
+
     fun getAuthorizationUrl(clientId: String, redirectUri: String = DEFAULT_REDIRECT, scope: String = DEFAULT_SCOPE)
-        = "$baseUrl/oauth/authorize?redirect_uri=${redirectUri.urlEncode()}&response_type=code&client_id=${clientId.urlEncode()}&&scope=${scope.urlEncode()}"
+        = "$baseUrl/oauth/authorize?response_type=code&client_id=${clientId.urlEncode()}&&scope=${scope.urlEncode()}&redirect_uri=${redirectUri.urlEncode()}"
 
     fun String.urlEncode() = URLEncoder.encode(this, "UTF-8") ?: throw IllegalArgumentException("cause by $this")
 }

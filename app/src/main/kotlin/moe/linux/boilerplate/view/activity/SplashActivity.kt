@@ -29,12 +29,12 @@ class SplashActivity : BaseActivity() {
         compositeDisposable.add(
             Observable.timer(3, TimeUnit.SECONDS)
                 .subscribe({
-                    if (isHaveAccount()) openMainPage() else openMainPage()
+                    if (isHaveAccount()) openMainPage() else openLoginPage()
                 }, { it.printStackTrace() }))
     }
 
     // TODO: implement
-    fun isHaveAccount() = true
+    fun isHaveAccount() = false
 
     fun openMainPage() {
         finish()
