@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import moe.linux.boilerplate.MainApplication
 import moe.linux.boilerplate.di.ActivityComponent
 import moe.linux.boilerplate.di.ActivityModule
+import moe.linux.boilerplate.di.RealmModule
 import javax.inject.Inject
 import kotlin.reflect.KClass
 

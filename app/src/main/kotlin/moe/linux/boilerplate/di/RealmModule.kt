@@ -9,10 +9,13 @@ import moe.linux.boilerplate.di.scope.Toot
 
 
 @Module
-class RealmModule {
+class RealmModule() {
 
     @Provides @Account
     fun provideAccountRealm(): Realm = Realm.getInstance(RealmConfiguration.Builder().name("account").build())
+
+    @Provides @Account
+    fun provideAccountRealmConfiguration(): RealmConfiguration = RealmConfiguration.Builder().name("account").build()
 
     @Provides @Toot
     fun provideTootRealm(): Realm = Realm.getInstance(RealmConfiguration.Builder().name("toot").build())

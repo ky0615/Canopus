@@ -153,6 +153,10 @@ dependencies {
     // Misc
     compile 'com.jakewharton.timber:timber:4.3.1'
 
+    // mastodon4j
+    compile 'com.github.sys1yagi.mastodon4j:mastodon4j:1.0.0'
+    compile 'com.github.sys1yagi.mastodon4j:mastodon4j-rx:1.0.0'
+
     testCompile 'junit:junit:4.12'
     testCompile 'com.github.gfx.android.robolectricinstrumentation:robolectric-instrumentation:3.1.4'
     testCompile('com.squareup.assertj:assertj-android:1.1.1') {

@@ -1,9 +1,11 @@
 package moe.linux.boilerplate.di
 
+import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import moe.linux.boilerplate.api.github.GithubApiService
+import moe.linux.boilerplate.api.mastodon.MastodonClientBuilder
 import moe.linux.boilerplate.api.qiita.QiitaApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -47,6 +49,9 @@ class ApiModule {
             .build()
             .apply { this.baseUrl() }
             .create(QiitaApiService::class.java)
+
+    @Provides @Singleton
+    fun provideMastodonClientBuilder() = MastodonClientBuilder(OkHttpClient.Builder(), Gson())
 
     @Provides @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()

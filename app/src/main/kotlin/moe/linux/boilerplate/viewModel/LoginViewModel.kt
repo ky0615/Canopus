@@ -6,20 +6,22 @@ import android.databinding.ObservableField
 import android.view.View
 import com.google.gson.GsonBuilder
 import com.mcxiaoke.koi.ext.toast
+import com.sys1yagi.mastodon4j.rx.RxAccounts
 import io.reactivex.disposables.CompositeDisposable
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import moe.linux.boilerplate.R
-import moe.linux.boilerplate.api.mastodon.AppsResponse
-import moe.linux.boilerplate.api.mastodon.MastodonApiClient
-import moe.linux.boilerplate.util.view.Navigator
-import moe.linux.boilerplate.util.view.ViewModel
-import moe.linux.boilerplate.util.view.prettyPrint
-import moe.linux.boilerplate.util.view.usingProgress
+import moe.linux.boilerplate.api.mastodon.*
+import moe.linux.boilerplate.di.scope.Account
+import moe.linux.boilerplate.util.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     val compositeDisposable: CompositeDisposable,
-    val navigator: Navigator) : BaseObservable(), ViewModel {
+    val navigator: Navigator,
+    val mastodonClientBuilder: MastodonClientBuilder,
+    @Account val accountRealmConfiguration: RealmConfiguration) : BaseObservable(), ViewModel {
 
     @Bindable
     var instanceUrl = ""
@@ -96,7 +98,9 @@ class LoginViewModel @Inject constructor(
                 }, apiClient!!.getAccessToken(client_id, client_secret, token, redirectUri))
                     .subscribe({
                         navigator.activity.toast(R.string.login_succeed)
-                        Timber.d("access token: $it")
+                        Timber.d("access token:")
+                        prettyPrint(it)
+                        saveAccount(it)
                     }, {
                         it.printStackTrace()
                         navigator.activity.toast(R.string.login_failed_get_access_token)
@@ -105,8 +109,29 @@ class LoginViewModel @Inject constructor(
         } ?: throw IllegalArgumentException("apps is required")
     }
 
-    fun saveAccessToken(x: Any) {
-        // TODO: save with realm
+    fun saveAccount(token: AccessToken) {
+        val client = mastodonClientBuilder
+            .build(instanceUrl)
+            .accessToken(token.accessToken)
+            .build()
+
+        compositeDisposable.add(
+            usingProgress({ showProgressView.set(true) }, { showProgressView.set(false) }, RxAccounts(client).getVerifyCredentials().bindThread())
+                .subscribe({ account ->
+                    prettyPrint(account)
+                    Realm.getInstance(accountRealmConfiguration)
+                        .apply {
+                            beginTransaction()
+                            createObject(MastodonAccount::class.java, MastodonAccount.makeUID(instanceUrl, account.id))
+                                .also {
+                                    it.accountId = account.id
+                                    it.username = account.userName
+                                    it.instanceUrl = instanceUrl
+                                }
+                            commitTransaction()
+                        }
+                }, { it.printStackTrace() })
+        )
     }
 
     override fun destroy() {
