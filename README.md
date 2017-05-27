@@ -1,5 +1,6 @@
-# AndroidKotlinBoilerplate
-Android Boilerplate written in Kotlin.
+# Canopus
+Mastodon Client written in Kotlin.
+
 
 ## Libraries
 - Dagger2
@@ -53,3 +54,6 @@ index 4ff94ff..42ed0d6 100644
      }
  }
 ```
+
+## License
+MIT
